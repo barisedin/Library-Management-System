@@ -1,7 +1,8 @@
 import datetime
 import time
-from datetime import date
+from datetime import date, timedelta
 class book():
+
 
     def __init__(self,bookname,ownername,surname,duedate,price,taken):
         self.bookname=bookname
@@ -13,16 +14,17 @@ class book():
 
 
 class action():
-    global list,mainlist,price,takenlist
+    global list,mainlist,price,takenlist,d0,today
     price = 50
     mainlist =["Anna Karenina", "The Great Gatsby", "One Hundred Years of Solitude", "A Passage to India", "Invisible Man",
             "Don Quixote"]
     takenlist = []
-    global d0
+    today=date.today()
     d0 = date (2023,10,3)
 
     list = mainlist.copy()
 
+    #the fourth book is taken becasuse of see the programs properties
     list[3] = book("A Passage to India","barış","edin","2023, 11, 3","150","taken")
     takenlist.append(list[3].bookname)
 
@@ -42,25 +44,49 @@ class action():
             else:
                 print(f"{num}. {x}")
             num += 1
-    def give_book(num):
+
+
+    @staticmethod
+    def give_book():
+    # this metod gives the book to a user
+        num=1
+
+        for x in mainlist:
+            if x not in takenlist:
+                print(f"{num}. {x}")
+                num += 1
+            
+        num = input("Which book do you want to take (press q for exit): ")
+
+        if num == "q":
+            print("\n")
+            return
+        else:
+            num= int(num)
+        num=num-1
         list = mainlist.copy()
-        # a =list[num]
         take= (hasattr(list[num],'taken'))
+
+
         if take ==True:
+
+            #if book was taken the program gives alert
             print("Sorry this book is taken come back later")
+
         elif take ==False:
+
+            #if book was not taken program gives the book
             name = input("What is your name")
             surname = input("What is your surname")
-            date=input("When do you want to return the book")
-            list[num] = book(mainlist[num],name,surname,date,price,True)
-            takenlist.append(list[num].bookname)
-            print(takenlist)
-            # d1 = int(input("When its gonna return (Write as year/ month /day)"))
-            # print(type(d0))
-            # print(type(d1))
 
-            # days=d0-d1
-            # print(f"You have {days.days} to read")
+            returndate = today + +timedelta(days=10)
+            list[num] = book(mainlist[num],name,surname,returndate,price,True)
+            takenlist.append(list[num].bookname)
+
+            print("This will cost 50 ")
+            print(f"You have to return the {mainlist[num]} on {returndate} ")
+            time.sleep(5)
+
     @staticmethod
     def return_book():
         print("The taken books list")

@@ -1,5 +1,8 @@
 from books import book
 from books import action
+
+
+
 import time
 global list
 
@@ -30,14 +33,19 @@ while True:
         time.sleep(2)
 
     elif choi == "3":
-        num = input("Which book do you want to take (press q for exit): ")
-
-        if num =="q":
-            print("\n")
-            continue
-
-        nnum= int(num)-1
-        action.give_book(nnum)
+        # num = input("Which book do you want to take (press q for exit): ")
+        #
+        #
+        #
+        #
+        # if num =="q":
+        #     print("\n")
+        #     continue
+        #
+        # nnum= int(num)-1
+        # action.give_book(nnum)
+        print("\n")
+        action.give_book()
 
     elif choi =="4":
         print("\n")
