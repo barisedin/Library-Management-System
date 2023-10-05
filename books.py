@@ -16,17 +16,27 @@ class book():
 class action():
     global list,mainlist,price,takenlist,d0,today
     price = 50
+    #mainlist i sadece kitapların adlarını ve yeni kitapları eklemek için kullanıyorum
     mainlist =["Anna Karenina", "The Great Gatsby", "One Hundred Years of Solitude", "A Passage to India", "Invisible Man",
             "Don Quixote"]
+    #götürülen kitaplar buraya yazılacak
     takenlist = []
+    list=[]
+    #günümüzün tarihini verdim 10 gün sonra kullanıcıdan kitabı geri istemesi için yazdırıyorum
     today=date.today()
     d0 = date (2023,10,3)
 
+    #list listesini objeleri oluşturmak için kullanıcam
     list = mainlist.copy()
+    # takenlist = mainlist.copy()
 
     #the fourth book is taken becasuse of see the programs properties
-    list[3] = book("A Passage to India","barış","edin","2023, 11, 3","150","taken")
-    takenlist.append(list[3].bookname)
+    takenlist.append(list[3])
+    takenlist[0] = book("A Passage to India","barış","edin","2023, 11, 3","150","taken")
+    print(takenlist)
+
+    # list[3] = book("A Passage to India","barış","edin","2023, 11, 3","150","taken")
+    # takenlist.append(list[3].bookname)
 
 
     @staticmethod
@@ -38,8 +48,10 @@ class action():
     @staticmethod
     def checkbook():
         num=1
+        print(takenlist)
         for x in mainlist:
-            if x in takenlist:
+            if x not in takenlist:
+                # print(takenlist)
                 print(f"{num}. {x} (taken)")
             else:
                 print(f"{num}. {x}")
@@ -50,12 +62,16 @@ class action():
     def give_book():
     # this metod gives the book to a user
         num=1
-
+        countnum=-1
         for x in mainlist:
+
             if x not in takenlist:
+                countnum +=1
+                print(f"bu hatalı {x}")
+            if x  in takenlist:
                 print(f"{num}. {x}")
                 num += 1
-            
+
         num = input("Which book do you want to take (press q for exit): ")
 
         if num == "q":
@@ -63,6 +79,7 @@ class action():
             return
         else:
             num= int(num)
+        print()
         num=num-1
         list = mainlist.copy()
         take= (hasattr(list[num],'taken'))
@@ -74,17 +91,19 @@ class action():
             print("Sorry this book is taken come back later")
 
         elif take ==False:
-
+            print(num+countnum)
+            print(mainlist)
+            print()
             #if book was not taken program gives the book
             name = input("What is your name")
             surname = input("What is your surname")
 
             returndate = today + +timedelta(days=10)
-            list[num] = book(mainlist[num],name,surname,returndate,price,True)
-            takenlist.append(list[num].bookname)
+            list[num+countnum] = book(mainlist[num+countnum],name,surname,returndate,price,True)
+            takenlist.append(list[num+countnum].bookname)
 
             print("This will cost 50 ")
-            print(f"You have to return the {mainlist[num]} on {returndate} ")
+            print(f"You have to return the {mainlist[num+countnum]} on {returndate} ")
             time.sleep(5)
 
     @staticmethod
