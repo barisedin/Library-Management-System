@@ -2,7 +2,6 @@ from books import book
 from books import action
 
 
-
 import time
 global list
 
@@ -54,7 +53,6 @@ while True:
 
     elif choi =="q":
         exit()
-
 
 
 
