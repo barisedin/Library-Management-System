@@ -2,7 +2,6 @@ from books import book
 from books import action
 
 
-
 import time
 global list
 
@@ -17,14 +16,10 @@ while True:
     print("4. Return book")
     print("q. Quit Program")
 
-
-
     choi = input("\nWhat do you want to do:")
 
     if choi =="1":
         action.addbook()
-
-
 
     if choi == "2":
         print("\n")
@@ -33,17 +28,7 @@ while True:
         time.sleep(2)
 
     elif choi == "3":
-        # num = input("Which book do you want to take (press q for exit): ")
-        #
-        #
-        #
-        #
-        # if num =="q":
-        #     print("\n")
-        #     continue
-        #
-        # nnum= int(num)-1
-        # action.give_book(nnum)
+
         print("\n")
         action.give_book()
 
@@ -51,15 +36,5 @@ while True:
         print("\n")
         action.return_book()
 
-
     elif choi =="q":
         exit()
-
-
-
-
-
-
-
-
-

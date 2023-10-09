@@ -1,42 +1,34 @@
 import datetime
 import time
 from datetime import date, timedelta
+
+
 class book():
 
-
-    def __init__(self,bookname,ownername,surname,duedate,price,taken):
-        self.bookname=bookname
+    def __init__(self, bookname, ownername, surname, duedate, price):
+        self.bookname = bookname
         self.ownername = ownername
         self.surname = surname
         self.duedate = duedate
         self.price = price
-        self.taken = taken
+
 
 
 class action():
-    global list,mainlist,price,takenlist,d0,today
+    global list, mainlist, price, takenlist, d0, today
     price = 50
-    #mainlist i sadece kitapların adlarını ve yeni kitapları eklemek için kullanıyorum
-    mainlist =["Anna Karenina", "The Great Gatsby", "One Hundred Years of Solitude", "A Passage to India", "Invisible Man",
-            "Don Quixote"]
-    #götürülen kitaplar buraya yazılacak
+    mainlist = ["Anna Karenina", "The Great Gatsby", "One Hundred Years of Solitude", "A Passage to India",
+                "Invisible Man",
+                "Don Quixote"]
     takenlist = []
-    list=[]
-    #günümüzün tarihini verdim 10 gün sonra kullanıcıdan kitabı geri istemesi için yazdırıyorum
-    today=date.today()
-    d0 = date (2023,10,3)
+    today = date.today()
+    d0 = date(2023, 10, 3)
 
-    #list listesini objeleri oluşturmak için kullanıcam
-    list = mainlist.copy()
-    # takenlist = mainlist.copy()
+    # list = mainlist.copy()
 
-    #the fourth book is taken becasuse of see the programs properties
-    takenlist.append(list[3])
-    list[0] = book("A Passage to India","barış","edin","2023, 11, 3","150","taken")
-    print(list)
-
-    # list[3] = book("A Passage to India","barış","edin","2023, 11, 3","150","taken")
-    # takenlist.append(list[3].bookname)
+    # the fourth book is taken becasuse of see the programs properties
+    takenlist.append("A Passage to India")
+    takenlist[0] = book("A Passage to India", "barış", "edin", "2023, 11, 3", "150")
 
 
     @staticmethod
@@ -47,83 +39,78 @@ class action():
 
     @staticmethod
     def checkbook():
-        num=1
-        print(takenlist)
+        place=1
         for x in mainlist:
-            if x in takenlist:
-                # print(takenlist)
-                print(f"{num}. {x} (taken)")
+            take =False
+            for i in range(len(takenlist)):
+                if x == takenlist[i].bookname:
+                    take=True
+
+                else:
+                    if take==True:
+                        pass
+                    else:
+                        take=False
+                        continue
+
+            if take == True:
+                # print(take)
+                print(f"{place}. {x} (taken)")
             else:
-                print(f"{num}. {x}")
-            num += 1
-
-
+                # print(take)
+                print(f"{place}. {x}")
+            place +=1
+        pass
     @staticmethod
     def give_book():
-    # this metod gives the book to a user
-        nnum=1
-        countnum=-1
+        place = 1
+        list =[]
+        print(list)
         for x in mainlist:
+            take =False
+            for i in range(len(takenlist)):
+                if x == takenlist[i].bookname:
+                    take=True
 
-            if x not in takenlist:
-                # countnum +=1
-                print(f"{nnum}. {x}")
-                nnum +=1
-            if x  in takenlist:
-                # print(f"{num}. {x}")
-                # nnum += 1
-                pass
+                else:
+                    if take==True:
+                        pass
+
+            if take == False:
+
+                list.append(x)
+                print(f"{place}. {x}")
+                place +=1
+
         num = input("Which book do you want to take (press q for exit): ")
 
         if num == "q":
             print("\n")
             return
         else:
-            num= int(num)
-        print(num)
-        num=num-1
-        # list = mainlist.copy()
-        take= (hasattr(list[num],'taken'))
+            num = int(num)
+            num = num - 1
+            name_of_book = list[num]
 
-
-        if take ==True:
-
-            #if book was taken the program gives alert
-            print("Sorry this book is taken come back later")
-
-        elif take ==False:
-            print(num+countnum)
-            print(mainlist)
-            print()
-            #if book was not taken program gives the book
-            name = input("What is your name")
-            surname = input("What is your surname")
-
-            returndate = today + +timedelta(days=10)
-            list[num+countnum] = book(mainlist[num+countnum],name,surname,returndate,price,True)
-            takenlist.append(list[num+countnum].bookname)
-
-            print("This will cost 50 ")
-            print(f"You have to return the {mainlist[num+countnum]} on {returndate} ")
-            time.sleep(5)
+        name = input("What is your name")
+        surname = input("What is your surname")
+        last_element=len(takenlist)
+        returndate = today + +timedelta(days=10)
+        takenlist.append(name_of_book)
+        takenlist[last_element] = book(list[num], name, surname, returndate, price)
+        print("This will cost 50 ")
+        print(f"You have to return the {mainlist[num]} on {returndate} ")
+        time.sleep(2)
 
     @staticmethod
     def return_book():
         print("The taken books list")
-        i =1
+        i = 1
         for x in takenlist:
-            print(f"{i}.{x}")
-            i +=1
-        choi = int(input("Which book is going to return"))
-        del list[3]
+            print(f"{i}.{x.bookname}")
+            i += 1
+        choi = int(input("Which book is going to return: "))
+        # del list[3]
         return_book_name = takenlist[choi - 1]
-        list.append(return_book_name)
+
         takenlist.remove(return_book_name)
-        print(takenlist)
-        print(list)
-
-
-
-
-
-print()
